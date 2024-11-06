@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/styles/user/login.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+    <style>
+body {
+    background-image: url('/design/tools/bgad.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.glass-container {
+    background: rgba(13, 19, 33, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.login-title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: white;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: none;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-login {
+    background: white;
+    color: #1a1a1a;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+.form-check-label {
+    color: white;
+}
+
+.forgot-password {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.register-link {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.register-link a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 0.875rem;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+    </style>
+
+</head>
+<body>
+    <div class="glass-container">
+        <h1 class="login-title">Admin-Login</h1>
+        <form id="loginForm" action="/user/home" method="post" novalidate>
+            <!-- <input type="text" id="message" value="<message %>" name="message" hidden> -->
+            <div class="mb-3">
+                <input type="email" class="form-control" id="email" placeholder="Admin email id " name="email" required>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" required>
+                <div class="error-message" id="passwordError">Please enter your password</div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" >
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn btn-login">Admin-Log In</button>
+            <div class="register-link">
+                Don't have an account? <a href="#">New-Admin</a>
+            </div>
+        </form>
+    </div>
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="/script/user/login.js"></script> -->
+    <!-- <script src="/script/user/log.js"></script> -->
+     <script>
+        const message = document.getElementById("message").value;
+
+// Show initial message if exists
+if (message) {
+    swal({
+        title: message,
+        text: "I will close in 2 seconds.",
+        timer: 2000,
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById('loginForm');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isValid = true;
+
+        // Reset previous error states
+        email.classList.remove('is-invalid');
+        password.classList.remove('is-invalid');
+        emailError.style.display = 'none';
+        passwordError.style.display = 'none';
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim()) {
+            showError(email, emailError, 'Please enter your email address');
+            isValid = false;
+        } else if (!emailRegex.test(email.value.trim())) {
+            showError(email, emailError, 'Please enter a valid email address');
+            isValid = false;
+        }
+
+        // Password validation
+        if (!password.value.trim()) {
+            showError(password, passwordError, 'Please enter your password');
+            isValid = false;
+        }
+
+        // Show sweet alert for overall empty fields
+        if (!email.value.trim() && !password.value.trim()) {
+            swal({
+                title: "All fields are empty!",
+                text: "Please fill in all required fields",
+                timer: 2000,
+            });
+            return;
+        }
+
+        if (isValid) {
+            // For demonstration purposes
+            console.log('Form submitted successfully');
+            console.log('Email:', email.value);
+            console.log('Password:', password.value);
+            console.log('Remember me:', document.getElementById('rememberMe').checked);
+            
+            // Submit the form
+            e.target.submit();
+        }
+    });
+});
+
+// Helper function to show errors
+function showError(element, errorElement, message) {
+    element.classList.add('is-invalid');
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+     </script>
+</body>
+</html>

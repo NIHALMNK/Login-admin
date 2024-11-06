@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('./tools/bg3.avif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .glass-container {
+            background: rgba(13, 19, 33, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .register-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-label {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            padding: 12px;
+            margin-bottom: 5px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+            color: white;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px;
+            margin-bottom: 5px;
+        }
+
+        .form-select:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+            color: white;
+        }
+
+        .form-select option {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .btn-register {
+            background: white;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+        }
+
+        .login-link {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.875rem;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <h1 class="register-title">Register</h1>
+        <form id="registerForm" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                <div class="error-message" id="nameError">Please enter your name (minimum 2 characters)</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" id="gender" required>
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="error-message" id="genderError">Please select your gender</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                <div class="error-message" id="passwordError">Password must be at least 2 characters with letters and numbers</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+
+            <button type="submit" class="btn btn-register">Register</button>
+            <div class="login-link">
+                Already have an account? <a href="#">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Get all form elements
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const gender = document.getElementById('gender');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            // Get all error elements
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const genderError = document.getElementById('genderError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+            // Name validation
+            if (!name.value.trim() || name.value.trim().length < 2) {
+                nameError.style.display = 'block';
+                name.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+                name.classList.remove('is-invalid');
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                email.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+                email.classList.remove('is-invalid');
+            }
+
+            // Gender validation
+            if (!gender.value) {
+                genderError.style.display = 'block';
+                gender.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                genderError.style.display = 'none';
+                gender.classList.remove('is-invalid');
+            }
+
+            // Password validation
+            // const passwordRegex = /^(?=.*[A-Za-z]){2,}$/;
+            if (!password.value ||password.value.length < 2  ) {
+                passwordError.style.display = 'block';
+                password.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+                password.classList.remove('is-invalid');
+            }
+
+            // Confirm Password validation
+            if (password.value !== confirmPassword.value) {
+                confirmPasswordError.style.display = 'block';
+                confirmPassword.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                confirmPasswordError.style.display = 'none';
+                confirmPassword.classList.remove('is-invalid');
+            }
+
+            if (isValid) {
+                // Form is valid, you can submit the data
+                console.log('Form submitted successfully');
+                console.log('Name:', name.value);
+                console.log('Email:', email.value);
+                console.log('Gender:', gender.value);
+                console.log('Password:', password.value);
+            }
+        });
+    </script>
+</body>
+</html>
